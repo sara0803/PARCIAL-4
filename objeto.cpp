@@ -89,6 +89,11 @@ void Objeto::ActualizarPosicion()
 
 }
 
+void Objeto::cambiodireccion()
+{
+    setPos(x(),y()-30);
+}
+
 QRectF Objeto::boundingRect() const
 {
      return QRectF(-radio,-radio,2*radio,2*radio);

@@ -11,6 +11,7 @@
 #include "graficar.h"
 #include <iostream>
 #include <fstream>
+#include <QDebug>
 namespace Ui {
 class MainWindow;
 }
@@ -39,6 +40,8 @@ private slots:
     int aceleracionaleatoria();
 
     void ActualizarO();
+
+     void rebote();
 
 
 private:

@@ -25,6 +25,7 @@ public:
     void derecha();
     void izquierda();
     void ActualizarPosicion();
+    void cambiodireccion();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     int getAceleraciony() const;

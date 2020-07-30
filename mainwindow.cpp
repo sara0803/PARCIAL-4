@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer=new QTimer(this);
     scene=new QGraphicsScene(this);
+
     timer2=new QTimer(this);
 
     scene->setSceneRect(-h_limit/2,-v_limit/2,h_limit,v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
@@ -36,12 +37,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     timer->stop();
-    connect(timer,SIGNAL(timeout()),this,SLOT(ActualizarO()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
     timer->start(dt);
 
     timer2->stop();
-    connect(timer,SIGNAL(timeout()),this,SLOT((ActualizarO())));
-   // timer2->start(dt);
+    connect(timer2,SIGNAL(timeout()),this,SLOT(ActualizarO()));
+     //timer2->start(100);
+
 
 
 
@@ -156,7 +158,7 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_INICIAR_clicked()
 {
-    timer2->start(1);
+
     int posicionx=posicionaleatoria();
     int aceleracion=aceleracionaleatoria();
     /*caida=new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png");
@@ -170,7 +172,7 @@ void MainWindow::on_INICIAR_clicked()
     cuerpos.append(new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png"));
     cuerpos.append(new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png"));    //Planetas agregados directamente
 
-
+ActualizarO();
 
 
 }
@@ -206,17 +208,48 @@ int MainWindow::aceleracionaleatoria()
 void MainWindow::ActualizarO()
 {
 
-
+timer2->start(100);
     for(int i=0;i<cuerpos.size();i++)
     {
 
         scene->addItem(cuerpos.at(i));
-        cuerpos.at(i)->ActualizarPosicion();
+         qDebug()<<cuerpos.at(i)->y();
+        if(cuerpos.at(i)->y()<230)
+        {
+            cuerpos.at(i)->ActualizarPosicion();
+        }
+        else
+        {
+            qDebug()<<"reboto aki";
+            while((cuerpos.at(i)->y()>-200))
+            {
+            cuerpos.at(i)->cambiodireccion();
+            }
+        }
+
+
+        //rebote();
 
 
 
     }
 
+}
+
+void MainWindow::rebote()
+{
+   /* for(int i=0;i<cuerpos.size();i++)
+    {
+
+        if(cuerpos.at(i)->x()>700 or cuerpos.at(i)->x()<700)
+        {
+            cuerpos.at(i)->cambiodireccion();
+        }
+
+
+
+
+    }*/
 }
 
 
