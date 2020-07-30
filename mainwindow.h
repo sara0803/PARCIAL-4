@@ -34,15 +34,22 @@ private slots:
 
     void on_INICIAR_clicked();
 
-    int aleatoriedad();
+    int posicionaleatoria();
+
+    int aceleracionaleatoria();
+
+    void ActualizarO();
+
 
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    QTimer *timer2;
     QGraphicsScene *scene;
     int h_limit;
     int v_limit;
     QList<Graficar*>LISTA;
+    QList<Objeto*>cuerpos;
     double masa;
     double posx;
     double posy;

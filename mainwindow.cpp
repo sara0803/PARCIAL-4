@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer=new QTimer(this);
     scene=new QGraphicsScene(this);
+    timer2=new QTimer(this);
+
     scene->setSceneRect(-h_limit/2,-v_limit/2,h_limit,v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
 
     ui->graphicsView->setScene(scene);
@@ -34,13 +36,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     timer->stop();
-    connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(ActualizarO()));
     timer->start(dt);
 
+    timer2->stop();
+    connect(timer,SIGNAL(timeout()),this,SLOT((ActualizarO())));
+   // timer2->start(dt);
 
 
 
-    LISTA.append(new Graficar(0,0,0,0,50000,200));
+
+         LISTA.append(new Graficar(0,0,0,0,50000,200));
         LISTA.append(new Graficar(-5000,0,0,-2,70,70));
         LISTA.append(new Graficar(5000,0,0,-2,70,70));    //Planetas agregados directamente
         LISTA.append(new Graficar(0,-5000,2,0,70,70));
@@ -150,17 +156,26 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_INICIAR_clicked()
 {
-    int posicionx=aleatoriedad();
-    caida=new Objeto(posicionx,-200,10,0, ":/IMAGENES/BOLA DE FUEGO.png");
+    timer2->start(1);
+    int posicionx=posicionaleatoria();
+    int aceleracion=aceleracionaleatoria();
+    /*caida=new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png");
     scene->addItem(caida);
-    caida=new Objeto(posicionx,-200,10,0, ":/IMAGENES/BOLA DE FUEGO.png");
+    caida=new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png");
     scene->addItem(caida);
-    caida=new Objeto(posicionx,-200,10,0, ":/IMAGENES/BOLA DE FUEGO.png");
-    scene->addItem(caida);
+    caida=new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png");
+    scene->addItem(caida);*/
+
+    cuerpos.append(new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png"));
+    cuerpos.append(new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png"));
+    cuerpos.append(new Objeto(posicionx,-200,5,aceleracion, ":/IMAGENES/BOLA DE FUEGO.png"));    //Planetas agregados directamente
+
+
+
 
 }
 
-int MainWindow::aleatoriedad()
+int MainWindow::posicionaleatoria()
 {
     int num, c;
         srand(time(NULL));
@@ -173,3 +188,35 @@ int MainWindow::aleatoriedad()
 
         return num;
 }
+
+int MainWindow::aceleracionaleatoria()
+{
+    int num, c;
+        srand(time(NULL));
+
+        for(c = 1; c <= 10; c++)
+        {
+            num = 1 + rand() % (11 - 1);
+
+        }
+
+        return num;
+}
+
+void MainWindow::ActualizarO()
+{
+
+
+    for(int i=0;i<cuerpos.size();i++)
+    {
+
+        scene->addItem(cuerpos.at(i));
+        cuerpos.at(i)->ActualizarPosicion();
+
+
+
+    }
+
+}
+
+

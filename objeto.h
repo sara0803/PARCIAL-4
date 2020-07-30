@@ -24,6 +24,7 @@ public:
     void bajar();
     void derecha();
     void izquierda();
+    void ActualizarPosicion();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     int getAceleraciony() const;

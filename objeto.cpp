@@ -8,6 +8,7 @@ int Objeto::getAceleraciony() const
 void Objeto::setAceleraciony(int value)
 {
     aceleraciony = value;
+
 }
 
 Objeto::Objeto()
@@ -54,6 +55,7 @@ int Objeto::getPosy()
 void Objeto::setPosy(int py)
 {
     posy = py;
+
 }
 void Objeto::subir()
 {
@@ -72,7 +74,19 @@ void Objeto::derecha()
 
 void Objeto::izquierda()
 {
-    setPos(x()-5,y());
+    setPos(x(),y());
+}
+
+void Objeto::ActualizarPosicion()
+{
+   // posx=posx*aceleraciony;
+
+
+     setPos(x(),y()+30);
+
+
+
+
 }
 
 QRectF Objeto::boundingRect() const
